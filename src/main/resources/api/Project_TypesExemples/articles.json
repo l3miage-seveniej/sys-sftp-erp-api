@@ -1,0 +1,21 @@
+[
+  {
+    "id":"4",
+    "title": "chaise",
+    "type_article": "Mobilier",
+    "stock_available": 33,
+    "data_update": "2021-01-01T00:00:00Z",
+    "description": "azerty"
+   
+  },
+  {
+    "id":"4",
+    "title": "lit",
+    "type_article": "Mobilier",
+    "stock_available": 44,
+    "data_update": "2020-06-06T00:00:00Z",
+    "description": "qwerty"
+   
+  }
+  
+]
