@@ -6,13 +6,13 @@
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="ProcessFilesSftp" doc:id="edda742d-28f1-42fe-a7c7-f9234cd76fdb" >
-		<sftp:list doc:name="List" doc:id="ecb262ce-f8bd-45e0-849c-6e6e81383126" config-ref="SFTP_Config" directoryPath="/Archives"/>
+		<sftp:list doc:name="List" doc:id="ecb262ce-f8bd-45e0-849c-6e6e81383126" config-ref="SFTP_Config" directoryPath="${sftp_remote.from}"/>
 		<ee:transform doc:name="Transform Message" doc:id="b6002130-c961-420d-bf07-f9bbd5b4153e" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload]]></ee:set-payload>
+payload.payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</flow>
