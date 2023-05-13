@@ -130,7 +130,7 @@ output application/json
 output application/json
 ---
 {
-  "input": "{\n  \"message\":\"Fichiers Présents\"\n}"
+  message: "{\n  \"message\":\"Fichiers Présents\"\n}"
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
