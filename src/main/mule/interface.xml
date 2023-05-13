@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
-    <http:listener-config name="system-sftp-erp-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="8081" />
-    </http:listener-config>
     <apikit:config name="system-sftp-erp-config" api="system-sftp-erp.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="system-sftp-erp-main">
         <http:listener config-ref="system-sftp-erp-httpListenerConfig" path="/api/*">
@@ -129,21 +126,24 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{
-  message: "{\n  \"message\":\"Fichiers Présents\"\n}"
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\SFTP:application\json:system-sftp-erp-config">
-        <ee:transform>
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  message: "Article Added"
-}]]></ee:set-payload>
+[
+  {
+    id: "4",
+    title: "chaise",
+    type_article: "Mobilier",
+    stock_available: 33,
+    data_update: "2021-01-01T00:00:00Z",
+    description: "azerty"
+  }, 
+  {
+    id: "4",
+    title: "lit",
+    type_article: "Mobilier",
+    stock_available: 44,
+    data_update: "2020-06-06T00:00:00Z",
+    description: "qwerty"
+  }
+]]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>

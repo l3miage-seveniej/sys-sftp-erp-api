@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-	
+	 <http:listener-config name="system-sftp-erp-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
 	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="5858d857-9c1c-4175-a560-5e42dd6350b7" >
-		<sftp:connection workingDir="Archives" host="${sftp_remote.host}" username="${sftp_remote.username}" password="${sftp_remote.password}" />
+		<sftp:connection workingDir="/" host="${sftp_remote.host}" username="${sftp_remote.username}" password="${sftp_remote.password}" />
 	</sftp:config>
 	<configuration-properties doc:name="Configuration properties" doc:id="1ff66d69-5946-4486-b2f8-e8791350082d" file="config.yaml" />
-	
 	
 </mule>

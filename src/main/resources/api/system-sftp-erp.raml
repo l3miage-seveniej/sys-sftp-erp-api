@@ -21,31 +21,15 @@ traits:
 
 /SFTP:
   is: [client-id-required]
-  post:
-    description: Add Articles
-    
-    body:
-      application/json:
-        type: array
-        items: Article
-        examples:
-          input : !include Project_TypesExemples/articles.json
-    responses:
-      201:
-        body:
-          application/json:
-            example:
-              message : Article Added  
   get:
-    
-     description: Presence de fichier
-     
-     responses:
-      201:
-        body:
-          application/json:
-            example:
-               message : !include Project_TypesExemples/path.json
-
+      description: Get All Articles 
+      responses:
+       200:
+         body:
+            application/json:
+             type: Article[]
+             examples:
+                output: !include Project_TypesExemples/articles.json
+ 
 
 
