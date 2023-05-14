@@ -15,5 +15,6 @@ output application/json
 payload.payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<sftp:move doc:name="Move" doc:id="95e56e89-0635-4dd5-b9d6-2f19368c910c" config-ref="SFTP_Config" sourcePath="${sftp_remote.from}/articles.csv" targetPath="${sftp_remote.to}" renameTo='ERP_BC_france.csv' overwrite="true"/>
 	</flow>
 </mule>

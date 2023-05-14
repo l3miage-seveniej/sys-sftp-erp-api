@@ -3,3 +3,4 @@ sftp_remote:
   username: "sftpdemolinkr.sftpdemolinkr.sftpdemolinkr"
   password: "YKaoM00QPhn/fBAN3IZMIsQ5gUEex4bc"
   from: "/InputFilesArticles"
+  to: "/Archives"
