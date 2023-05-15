@@ -6,15 +6,24 @@
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="ProcessFilesSftp" doc:id="edda742d-28f1-42fe-a7c7-f9234cd76fdb" >
-		<sftp:list doc:name="List" doc:id="ecb262ce-f8bd-45e0-849c-6e6e81383126" config-ref="SFTP_Config" directoryPath="${sftp_remote.from}"/>
-		<ee:transform doc:name="Transform Message" doc:id="b6002130-c961-420d-bf07-f9bbd5b4153e" >
+		<sftp:list doc:name="List all csv from Input" doc:id="ecb262ce-f8bd-45e0-849c-6e6e81383126" config-ref="SFTP_Config" directoryPath="${sftp_remote.from}" recursive="true">
+			<reconnect-forever />
+		</sftp:list>
+		<ee:transform doc:name="List to payload" doc:id="b6002130-c961-420d-bf07-f9bbd5b4153e" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload.payload]]></ee:set-payload>
+flatten(payload.payload)]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<sftp:move doc:name="Move" doc:id="95e56e89-0635-4dd5-b9d6-2f19368c910c" config-ref="SFTP_Config" sourcePath="${sftp_remote.from}/articles.csv" targetPath="${sftp_remote.to}" renameTo='ERP_BC_france.csv' overwrite="true"/>
+		<async doc:name="Move After" doc:id="457e129c-7219-41f1-a853-a43758f66e94">
+			<sftp:move doc:name="Move all csv input to archive" doc:id="95e56e89-0635-4dd5-b9d6-2f19368c910c" config-ref="SFTP_Config" sourcePath="${sftp_remote.from}" targetPath="${sftp_remote.to}" renameTo='#["ERP_BC_["++ now() as String++"]"]'>
+			<reconnect-forever />
+		</sftp:move>
+			<sftp:create-directory doc:name="Create directory" doc:id="d4eb9a87-2a8e-48da-afd7-bfd87b477502" config-ref="SFTP_Config" directoryPath="${sftp_remote.from}">
+				<reconnect-forever />
+			</sftp:create-directory>
+		</async>
 	</flow>
 </mule>
